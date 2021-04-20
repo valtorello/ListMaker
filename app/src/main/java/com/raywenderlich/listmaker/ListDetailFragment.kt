@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-lateinit var  list: TaskList
-lateinit var  listItemsRecyclerView : RecyclerView
+
 
 class ListDetailFragment : Fragment() {
+
+    lateinit var  list: TaskList
+    lateinit var  listItemsRecyclerView : RecyclerView
 
     override fun onCreate(savedInstaneState: Bundle?) {
         super.onCreate(savedInstaneState)

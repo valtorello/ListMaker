@@ -14,6 +14,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 
 private var listSelectionFragment: ListSelectionFragment = ListSelectionFragment.newInstance()
 private var fragmentContainer: FrameLayout? = null
@@ -116,6 +117,28 @@ class MainActivity : AppCompatActivity(),
                 listSelectionFragment.saveList(data.getParcelableExtra<TaskList>(INTENT_LIST_KEY) as
                         TaskList)
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        title = resources.getString(R.string.app_name)
+
+        listFragment?.list?.let {
+            listSelectionFragment.listDataManager.saveList(it)
+        }
+
+        listFragment?.let {
+            supportFragmentManager
+                    .beginTransaction()
+                    .remove(it)
+                    .commit()
+            listFragment = null
+        }
+
+        fab.setOnClickListener {
+            showCreateListDialog()
         }
     }
 
