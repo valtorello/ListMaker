@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
-private var listSelectionFragment: ListSelectionFragment = ListSelectionFragment.newInstance()
-private var fragmentContainer: FrameLayout? = null
-
-private var largeScreen = false
-private var listFragment : ListDetailFragment? = null
 
 class MainActivity : AppCompatActivity(),
     ListSelectionFragment.OnListItemFragmentInteractionListener {
+    private var listSelectionFragment: ListSelectionFragment = ListSelectionFragment.newInstance()
+    private var fragmentContainer: FrameLayout? = null
+
+    private var largeScreen = false
+    private var listFragment : ListDetailFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,9 +113,11 @@ class MainActivity : AppCompatActivity(),
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == LIST_DETAIL_REQUEST_CODE) {
+            val list = data?.getParcelableArrayListExtra<TaskList>(INTENT_LIST_KEY) as
+                    TaskList
+
             data?.let {
-                listSelectionFragment.saveList(data.getParcelableExtra<TaskList>(INTENT_LIST_KEY) as
-                        TaskList)
+                listSelectionFragment.saveList(list)
             }
         }
     }
